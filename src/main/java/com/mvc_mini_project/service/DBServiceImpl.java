@@ -81,4 +81,24 @@ public class DBServiceImpl implements DBService {
 		}
 	}
 
+	@Override
+	public ResultSet getRegistraionById(int id) {
+		try {
+			ResultSet result=stmt.executeQuery("select * from registration where id='"+id+"'");
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void UpdateRegisteration(int id, String name, String email, String mobile) {
+		try {
+			stmt.executeUpdate("update registration set name='"+name+"',email='"+email+"',mobile='"+mobile+"' where id='"+id+"'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

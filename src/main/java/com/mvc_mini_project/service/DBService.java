@@ -10,4 +10,6 @@ public interface DBService {
 	void registerUser(String name,String email,String mobile,String userId);
 	ResultSet getRegistraionsByUserId(String userId);
 	void deleteRegistraionsByEmail(String email);
+	ResultSet getRegistraionById(int id);
+	void UpdateRegisteration(int id,String name,String email,String mobile);
 }
