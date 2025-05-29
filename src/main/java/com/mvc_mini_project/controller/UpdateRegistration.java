@@ -48,6 +48,8 @@ public class UpdateRegistration extends HttpServlet {
 			rd.forward(request, response);
 	}
 		catch (Exception e) {
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
 	}
 	}

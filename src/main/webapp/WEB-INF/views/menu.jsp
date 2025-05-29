@@ -11,5 +11,9 @@
 	<h2>Quick Access Bar</h2>
 	<a href="RegistrationController">Create registration</a>
 	<a href="ReadRegistrations">List Registrations</a>
+	
+	<form action="logout" method="post">
+		<button type="submit">Logout</button>
+	</form>
 </body>
 </html>

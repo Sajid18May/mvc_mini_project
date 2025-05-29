@@ -17,33 +17,45 @@ import com.mvc_mini_project.service.DBServiceImpl;
 public class ReadRegistrations extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public ReadRegistrations() {
-        super(); 
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try{
-			HttpSession session=request.getSession(false);
-			String email=session.getAttribute("email").toString();
-			DBServiceImpl service=new DBServiceImpl();
-			service.connectDb();
-			ResultSet result=service.getUserByEmail(email);
-			String userId="";
-			if(result.next()) {
-				userId=result.getString(1);
-			}
-			ResultSet registrations=service.getRegistraionsByUserId(userId);
-			request.setAttribute("regiatrations", registrations);
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/RegistrationList.jsp");
-			rd.forward(request, response);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	public ReadRegistrations() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+			HttpSession session = request.getSession(false);
+			
+			if (session.getAttribute("email") != null) {
+			String email = session.getAttribute("email").toString();
+			
+				DBServiceImpl service = new DBServiceImpl();
+				service.connectDb();
+				ResultSet result = service.getUserByEmail(email);
+				String userId = "";
+				if (result.next()) {
+					userId = result.getString(1);
+				}
+				ResultSet registrations = service.getRegistraionsByUserId(userId);
+				request.setAttribute("regiatrations", registrations);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/RegistrationList.jsp");
+				rd.forward(request, response);
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e) {
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+			e.printStackTrace();
+			
+		}
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
 }
